@@ -1,0 +1,31 @@
+Resources:
+   myGroup:
+       Type: AWS::IAM::Group
+       Properties: 
+            GroupName: Developper
+            ManagedPolicyArns: 
+              - arn:aws:iam::aws:policy/IAMReadOnlyAccess
+
+#Create a user1
+   foo:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: myP@ssW0rd1
+
+#Create a user2
+   baa:
+    Type: AWS::IAM::User
+    Properties:
+      LoginProfile:
+        Password: myP@ssW0rd2
+
+
+#Adduser to the group
+   addUserToGroup:
+    Type: AWS::IAM::UserToGroupAddition
+    Properties:
+      GroupName: Developper
+      Users:
+       - !Ref foo
+       - !Ref baa
