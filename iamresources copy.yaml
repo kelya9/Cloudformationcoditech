@@ -1,0 +1,24 @@
+Resources
+  Developper:
+  Type: AWS::IAM::Group
+  Properties: 
+   GroupName: Developpergroup
+   ManagedPolicyArns: 
+    - !GetAtt readonlypolicy.Arn
+   Path: String
+   Policies: 
+    - PolicyName: readonlypolicy
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement: 
+          Effect: Allow
+          Action: 
+                iam:GenerateCredentialReport
+                iam:GenerateServiceLastAccessedDetails
+                iam:Get*
+                iam:List*
+                iam:SimulateCustomPolicy
+                iam:SimulatePrincipalPolicy
+            
+            Resource: *
+        

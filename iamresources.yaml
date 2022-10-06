@@ -1,5 +1,6 @@
 Resources:
-   myGroup:
+#Description: Using AWS CloudFormation to create a stack which consists of the IAM Group called Developper with AWS Managed Policy (Readonlyaccess).The two users (Foo and Baa) were created and add to the Developper group.
+    myGroup:
        Type: AWS::IAM::Group
        Properties: 
             GroupName: Developper
@@ -7,25 +8,56 @@ Resources:
               - arn:aws:iam::aws:policy/IAMReadOnlyAccess
 
 #Create a user1
-   foo:
-    Type: AWS::IAM::User
-    Properties:
+    foo:
+     Type: AWS::IAM::User
+     Properties:
       LoginProfile:
         Password: myP@ssW0rd1
 
 #Create a user2
-   baa:
-    Type: AWS::IAM::User
-    Properties:
-      LoginProfile:
-        Password: myP@ssW0rd2
+    baa:
+      Type: AWS::IAM::User
+      Properties:
+       LoginProfile:
+         Password: myP@ssW0rd2
 
 
 #Adduser to the group
-   addUserToGroup:
-    Type: AWS::IAM::UserToGroupAddition
-    Properties:
-      GroupName: Developper
-      Users:
-       - !Ref foo
-       - !Ref baa
+    addUserToGroup:
+      Type: AWS::IAM::UserToGroupAddition
+      Properties:
+        GroupName: Developper
+        Users:
+         - !Ref foo
+         - !Ref baa
+
+#Creating access keys for first user foo
+    myaccesskeya:
+      Type: AWS::IAM::AccessKey
+      Properties:
+        UserName:
+         !Ref foo
+
+ #Creating access keys for second user baa 
+    myaccesskeyb:
+      Type: AWS::IAM::AccessKey
+      Properties:
+       UserName:
+        !Ref baa 
+
+Outputs:
+  AccessKey:
+    Value: !Ref myaccesskeya 
+    Description: AWSAccessKeyId of user foo
+  
+  AccessKey:
+    Value: !Ref myaccesskeyb 
+    Description: AWSAccessKeyId of user baa
+
+  SecretKey:
+    Value: !GetAtt [myaccesskeya, SecretAccessKey]
+    Description: AWSSecretAccessKey of new foo
+  
+  SecretKey:
+    Value: !GetAtt [myaccesskeyb, SecretAccessKey]
+    Description: AWSSecretAccessKey of baa
