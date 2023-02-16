@@ -1,5 +1,5 @@
 Resources:
-#Description: Using AWS CloudFormation to create a stack which consists of the IAM Group called Developper with AWS Managed Policy (Readonlyaccess).The two users (Foo and Baa) were created and add to the Developper group.
+#Description: Using AWS CloudFormation to create a stack which consists of the IAM Group called Developper with AWS Managed Policy (Readonlyaccess).The two users (Foo and Baa) were created and added to the Developper group.
     myGroup:
        Type: AWS::IAM::Group
        Properties: 
